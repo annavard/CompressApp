@@ -22,9 +22,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
-class PickerViewHolder extends BaseViewHolder {
+class ImagePickerViewHolder extends BaseViewHolder {
 
-    private static final String TAG = "PickerViewHolder";
+    private static final String TAG = "ImagePickerViewHolder";
 
 //    @BindView(R.id.txt_name_media)
 //    TextView textMediaName;
@@ -41,7 +41,7 @@ class PickerViewHolder extends BaseViewHolder {
     private Media mMedia;
 
 
-    PickerViewHolder(@NonNull View itemView, OnDoneClickedListener listener) {
+    ImagePickerViewHolder(@NonNull View itemView, OnDoneClickedListener listener) {
         super(itemView, listener);
 
         ButterKnife.bind(this, itemView);
@@ -50,7 +50,7 @@ class PickerViewHolder extends BaseViewHolder {
     @Override
     public void bindData(Media media, Context context) {
         super.bindData(media, context);
-        Log.d(PickerAdapter.TAG, "PickerViewHolder - bindData");
+        Log.d(PickerAdapter.TAG, "ImagePickerViewHolder - bindData");
         if (media == null) return;
 //        textMediaName.setText(media.getName());
         mMedia = media;
@@ -75,10 +75,12 @@ class PickerViewHolder extends BaseViewHolder {
     @OnClick(R.id.picker_item_root)
     void onMediaSelected() {
         Log.d(TAG, "onMediaSelected - isSelected - " + mMedia.isSelected());
-
+        mMedia.setSelected(!mMedia.isSelected());
         mListener.onItemSelected(mMedia);
 
     }
+
+
 
 
 }

@@ -48,10 +48,21 @@ public class MediaPickerActivity extends AppCompatActivity implements PickerHead
         ButterKnife.bind(this);
 
         //TODO; Remove this
-        getAllShownImagesPath(this);
+//        getAllShownImagesPath(this);
+
+
+        mList = CursorHelper.getData(this);
+
+
+//        for (Media media : mList) {
+//            Log.d(TAG, "title - " + media.getTitle());
+//            Log.d(TAG, "uri - " + media.getUri().toString());
+//            Log.d(TAG, "type - " + media.getMediaType());
+//            Log.d(TAG, "size - " + media.getSize());
+//            Log.d(TAG, "_____________________________________");
+//        }
         mAdapter = new PickerAdapter(mList, this, this);
         mRecycler.setAdapter(mAdapter);
-//        mLayoutManager = new GridLayoutManager(this, 3);
         PickerLayoutManager layoutManager = new PickerLayoutManager(this, 3);
         mRecycler.setLayoutManager(layoutManager);
 
@@ -60,42 +71,14 @@ public class MediaPickerActivity extends AppCompatActivity implements PickerHead
     }
 
 
-    private void getAllShownImagesPath(Activity activity) {
-        Uri uri;
-        Cursor cursor;
-        int column_index_data, column_index_folder_name;
-        ArrayList<String> listOfAllImages = new ArrayList<>();
-        String absolutePathOfImage = null;
-        uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
 
-        String[] projection = {MediaStore.MediaColumns.DATA,
-                MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
-
-        cursor = activity.getContentResolver().query(uri, projection, null,
-                null, null);
-
-        column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-        column_index_folder_name = cursor
-                .getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
-
-        cursor.moveToLast();
-
-        while (cursor.moveToPrevious()) {
-            absolutePathOfImage = cursor.getString(column_index_data);
-            mList.add(new Media(cursor.getString(column_index_folder_name), Uri.fromFile(new File(absolutePathOfImage))));
-        }
-    }
-
-    public int getSelectedItemCount() {
-        return selectedItemCount;
-    }
 
     @Override
     public void onItemSelected(Media media) {
+        Log.d(TAG, "onItemSelected");
 
-
-        media.setSelected(!media.isSelected());
+//        media.setSelected(!media.isSelected());
 
         if (media.isSelected()) {
             if (selectedItemCount >= MAX_COUNT) {
@@ -125,7 +108,7 @@ public class MediaPickerActivity extends AppCompatActivity implements PickerHead
 
     @Override
     public void onDoneClicked() {
-        Log.d(TAG, "onDoneClicked");
+//        Log.d(TAG, "onDoneClicked");
         Intent intent = new Intent(MediaPickerActivity.this, UploadActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("User", Parcels.wrap(mSelectedList));

@@ -1,6 +1,7 @@
 package com.example.annavardanyan.compressapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class PickerHeaderViewHolder extends BaseViewHolder {
     @Override
     protected void bindData(Media media, Context context) {
         super.bindData(media, context);
+        Log.d(PickerAdapter.TAG, "PickerHeaderViewHolder - bindData");
         textCount.setText(String.valueOf(MediaPickerActivity.selectedItemCount));
     }
 

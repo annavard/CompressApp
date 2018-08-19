@@ -27,6 +27,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
 
     protected void bindData(Media media, Context context){
-        Log.d(PickerAdapter.TAG, "BaseViewHolder - bindData");
+//        Log.d(PickerAdapter.TAG, "BaseViewHolder - bindData");
     }
 }

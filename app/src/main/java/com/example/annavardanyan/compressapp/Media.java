@@ -8,9 +8,10 @@ import org.parceler.Parcel;
 @Parcel
 class Media {
 
-    private String name;
+    private String title;
     private Uri uri;
     private boolean isSelected;
+    int mediaType;
     private int size;
 
 
@@ -18,18 +19,28 @@ class Media {
 
     }
 
-    public Media(String name, Uri uri) {
-        this.name = name;
+    public Media(String title, Uri uri, int mediaType, int size) {
+        this.title = title;
         this.uri = uri;
+        this.mediaType = mediaType;
+        this.size = size;
     }
 
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(int mediaType) {
+        this.mediaType = mediaType;
     }
 
     public Uri getUri() {
