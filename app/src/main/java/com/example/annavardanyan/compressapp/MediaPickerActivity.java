@@ -1,17 +1,19 @@
 package com.example.annavardanyan.compressapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import org.parceler.Parcels;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,23 +22,23 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MediaPickerActivity extends AppCompatActivity implements  PickerHeaderViewHolder.OnDoneClickedListener {
+public class MediaPickerActivity extends AppCompatActivity implements PickerHeaderViewHolder.OnDoneClickedListener {
 
     public static String TAG = "MediaPickerActivity";
-
+    public static String SELECTED_MEDIA = "selected_media";
+    //TODO; Another solution
+    public static int selectedItemCount;
     public static int MAX_COUNT = 5;
     public static int MIN_COUNT = 1;
 
     private PickerAdapter mAdapter;
     private List<Media> mList = new ArrayList<>();
-    private PickerLayoutManager mLayoutManager;
-    private int selectedItemCount;
+    private List<Media> mSelectedList = new ArrayList<>();
+
 
     @BindView(R.id.recycler_picker)
     RecyclerView mRecycler;
 
-//    @BindView(R.id.txt_count)
-//    TextView txtCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,8 +52,10 @@ public class MediaPickerActivity extends AppCompatActivity implements  PickerHea
         mAdapter = new PickerAdapter(mList, this, this);
         mRecycler.setAdapter(mAdapter);
 //        mLayoutManager = new GridLayoutManager(this, 3);
-        mLayoutManager = new PickerLayoutManager(this, 3);
-        mRecycler.setLayoutManager(mLayoutManager);
+        PickerLayoutManager layoutManager = new PickerLayoutManager(this, 3);
+        mRecycler.setLayoutManager(layoutManager);
+
+        selectedItemCount = 0;
 
     }
 
@@ -83,36 +87,50 @@ public class MediaPickerActivity extends AppCompatActivity implements  PickerHea
         }
     }
 
+    public int getSelectedItemCount() {
+        return selectedItemCount;
+    }
+
     @Override
     public void onItemSelected(Media media) {
+
+
+        media.setSelected(!media.isSelected());
 
         if (media.isSelected()) {
             if (selectedItemCount >= MAX_COUNT) {
                 Log.d(TAG, "selectedItemCount - " + selectedItemCount);
                 Toast.makeText(this, "Sorry. Up to 5 files can be selected", Toast.LENGTH_SHORT).show();
+                media.setSelected(!media.isSelected());
                 return;
             }
             selectedItemCount++;
             Log.d(TAG, "selectedItemCount - " + selectedItemCount);
             mAdapter.updateItem(media);
-//            txtCount.setText(String.valueOf(selectedItemCount));
-        } else {
-            if (selectedItemCount >= MIN_COUNT) {
-                selectedItemCount--;
-                Log.d(TAG, "selectedItemCount - " + selectedItemCount);
-                mAdapter.updateItem(media);
-//                txtCount.setText(String.valueOf(selectedItemCount));
-            }
+            mSelectedList.add(media);
+            return;
+        }
+
+
+        if (selectedItemCount >= MIN_COUNT) {
+            selectedItemCount--;
+            Log.d(TAG, "selectedItemCount - " + selectedItemCount);
+            mAdapter.updateItem(media);
+            mSelectedList.remove(media);
         }
 
 
     }
 
 
-
     @Override
     public void onDoneClicked() {
         Log.d(TAG, "onDoneClicked");
+        Intent intent = new Intent(MediaPickerActivity.this, UploadActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("User", Parcels.wrap(mSelectedList));
+        intent.putExtra(SELECTED_MEDIA, Parcels.wrap(mSelectedList));
+        startActivity(intent);
 
     }
 }

@@ -12,13 +12,14 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         void onItemSelected(Media media);
 
         void onDoneClicked();
+
     }
 
 
-    protected OnDoneClickedListener mListener;
+    OnDoneClickedListener mListener;
 
 
-    public BaseViewHolder(View itemView,  OnDoneClickedListener listener) {
+    BaseViewHolder(View itemView, OnDoneClickedListener listener) {
         super(itemView);
 
         mListener = listener;

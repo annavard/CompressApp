@@ -75,27 +75,10 @@ class PickerViewHolder extends BaseViewHolder {
     @OnClick(R.id.picker_item_root)
     void onMediaSelected() {
         Log.d(TAG, "onMediaSelected - isSelected - " + mMedia.isSelected());
-        mMedia.setSelected(!mMedia.isSelected());
+
         mListener.onItemSelected(mMedia);
 
     }
 
 
-
-
-//TODO; Delete
-//    private void resize(){
-//        Bitmap bitmap = null;
-//        try {
-//            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), media.getUri());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        if(bitmap != null){
-//
-//            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, true);
-//            imageMedia.setImageBitmap(resizedBitmap);
-//        }
-//    }
 }

@@ -61,6 +61,7 @@ public class PickerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public void updateItem(Media media) {
         int position = mList.indexOf(media);
         notifyItemChanged(position);
+        notifyItemChanged(0);
 
     }
 
