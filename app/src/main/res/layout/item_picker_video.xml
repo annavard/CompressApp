@@ -7,13 +7,9 @@
     android:padding="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--<TextView-->
-        <!--android:id="@+id/txt_name_media"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"/>-->
 
-    <ImageView
-        android:id="@+id/img_media"
+    <VideoView
+        android:id="@+id/video"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="fitCenter"

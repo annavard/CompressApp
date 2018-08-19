@@ -20,7 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MediaPickerActivity extends AppCompatActivity implements PickerViewHolder.OnItemSelectedListener {
+public class MediaPickerActivity extends AppCompatActivity implements  PickerHeaderViewHolder.OnDoneClickedListener {
 
     public static String TAG = "MediaPickerActivity";
 
@@ -29,14 +29,14 @@ public class MediaPickerActivity extends AppCompatActivity implements PickerView
 
     private PickerAdapter mAdapter;
     private List<Media> mList = new ArrayList<>();
-    private RecyclerView.LayoutManager mLayoutManager;
+    private PickerLayoutManager mLayoutManager;
     private int selectedItemCount;
 
     @BindView(R.id.recycler_picker)
     RecyclerView mRecycler;
 
-    @BindView(R.id.txt_count)
-    TextView txtCount;
+//    @BindView(R.id.txt_count)
+//    TextView txtCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +49,8 @@ public class MediaPickerActivity extends AppCompatActivity implements PickerView
         getAllShownImagesPath(this);
         mAdapter = new PickerAdapter(mList, this, this);
         mRecycler.setAdapter(mAdapter);
-        mLayoutManager = new GridLayoutManager(this, 3);
+//        mLayoutManager = new GridLayoutManager(this, 3);
+        mLayoutManager = new PickerLayoutManager(this, 3);
         mRecycler.setLayoutManager(mLayoutManager);
 
     }
@@ -94,16 +95,24 @@ public class MediaPickerActivity extends AppCompatActivity implements PickerView
             selectedItemCount++;
             Log.d(TAG, "selectedItemCount - " + selectedItemCount);
             mAdapter.updateItem(media);
-            txtCount.setText(String.valueOf(selectedItemCount));
+//            txtCount.setText(String.valueOf(selectedItemCount));
         } else {
             if (selectedItemCount >= MIN_COUNT) {
                 selectedItemCount--;
                 Log.d(TAG, "selectedItemCount - " + selectedItemCount);
                 mAdapter.updateItem(media);
-                txtCount.setText(String.valueOf(selectedItemCount));
+//                txtCount.setText(String.valueOf(selectedItemCount));
             }
         }
 
+
+    }
+
+
+
+    @Override
+    public void onDoneClicked() {
+        Log.d(TAG, "onDoneClicked");
 
     }
 }

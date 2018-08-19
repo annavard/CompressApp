@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -19,17 +20,11 @@ import com.bumptech.glide.request.RequestOptions;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 
-class PickerViewHolder extends RecyclerView.ViewHolder {
+class PickerViewHolder extends BaseViewHolder {
 
     private static final String TAG = "PickerViewHolder";
-
-    interface OnItemSelectedListener{
-
-        void onItemSelected(Media media);
-    }
-
-
 
 //    @BindView(R.id.txt_name_media)
 //    TextView textMediaName;
@@ -37,68 +32,53 @@ class PickerViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.img_media)
     ImageView imageMedia;
 
+
     @BindView(R.id.img_media_selected)
     ImageView imageMediaSelected;
 
 
-    private OnItemSelectedListener mListener;
 
     private Media mMedia;
 
 
-
-    PickerViewHolder(@NonNull View itemView, OnItemSelectedListener listener) {
-        super(itemView);
+    PickerViewHolder(@NonNull View itemView, OnDoneClickedListener listener) {
+        super(itemView, listener);
 
         ButterKnife.bind(this, itemView);
-        mListener = listener;
     }
 
-
+    @Override
     public void bindData(Media media, Context context) {
-
+        super.bindData(media, context);
+        Log.d(PickerAdapter.TAG, "PickerViewHolder - bindData");
         if (media == null) return;
 //        textMediaName.setText(media.getName());
         mMedia = media;
 
 
-
         Glide.with(context)
                 .load(media.getUri())
-                .apply(new RequestOptions().override(300, 300))
+//                .apply(new RequestOptions().override(300, 300))
                 .apply(new RequestOptions().placeholder(R.drawable.img_placeholder))
                 .into(imageMedia);
 
-        if(mMedia.isSelected()){
+        if (mMedia.isSelected()) {
             imageMediaSelected.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             imageMediaSelected.setVisibility(View.GONE);
         }
-
     }
 
 
 
 
     @OnClick(R.id.picker_item_root)
-    void onMediaSelected(){
+    void onMediaSelected() {
         Log.d(TAG, "onMediaSelected - isSelected - " + mMedia.isSelected());
         mMedia.setSelected(!mMedia.isSelected());
         mListener.onItemSelected(mMedia);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
