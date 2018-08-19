@@ -1,28 +1,24 @@
-package com.example.annavardanyan.compressapp;
+package com.example.annavardanyan.compressapp.view.view_holder;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.annavardanyan.compressapp.model.Media;
+import com.example.annavardanyan.compressapp.view.adapter.PickerAdapter;
+import com.example.annavardanyan.compressapp.R;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Optional;
 
-class ImagePickerViewHolder extends BaseViewHolder {
+public class ImagePickerViewHolder extends BaseViewHolder {
 
     private static final String TAG = "ImagePickerViewHolder";
 
@@ -41,7 +37,7 @@ class ImagePickerViewHolder extends BaseViewHolder {
     private Media mMedia;
 
 
-    ImagePickerViewHolder(@NonNull View itemView, OnDoneClickedListener listener) {
+    public ImagePickerViewHolder(@NonNull View itemView, OnDoneClickedListener listener) {
         super(itemView, listener);
 
         ButterKnife.bind(this, itemView);

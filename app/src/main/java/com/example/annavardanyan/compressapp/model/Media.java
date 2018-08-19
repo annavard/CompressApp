@@ -1,4 +1,4 @@
-package com.example.annavardanyan.compressapp;
+package com.example.annavardanyan.compressapp.model;
 
 import android.net.Uri;
 
@@ -6,7 +6,7 @@ import org.parceler.Parcel;
 
 
 @Parcel
-class Media {
+public class Media {
 
     private String title;
     private Uri uri;

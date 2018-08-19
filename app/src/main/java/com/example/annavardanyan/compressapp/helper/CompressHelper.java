@@ -1,4 +1,4 @@
-package com.example.annavardanyan.compressapp;
+package com.example.annavardanyan.compressapp.helper;
 
 import android.graphics.Bitmap;
 

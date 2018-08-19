@@ -1,15 +1,10 @@
-package com.example.annavardanyan.compressapp;
+package com.example.annavardanyan.compressapp.view.activity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
-import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -21,10 +16,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import com.example.annavardanyan.compressapp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        requestPermissions();
-
     }
 
 
@@ -62,10 +52,15 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_select)
     void onSelectClicked() {
 
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions();
+            return;
+        }
+
         Intent intent = new Intent(MainActivity.this, MediaPickerActivity.class);
         startActivity(intent);
-
-//        openImagesAndVideos3();
 
     }
 
@@ -73,22 +68,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void requestPermissions(){
-
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     1);
-            return;
-        }
 
     }
 
 
-    private void openImagesAndVideos1() {
+    private void openImagesAndVideos() {
         if (Build.VERSION.SDK_INT < 19) {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/* video/*");
@@ -102,29 +89,6 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, SELECT_PICTURE);
         }
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void openImagesAndVideos2() {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("*/*");
-        photoPickerIntent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/*", "video/*"});
-        photoPickerIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        startActivityForResult(photoPickerIntent, SELECT_PICTURE);
-    }
-
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-    private void openImagesAndVideos3() {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/*", "video/*"});
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-        startActivityForResult(intent, SELECT_PICTURE);
-
-    }
-
 
 
     @Override
@@ -152,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == 1){
             for(int i : grantResults){
                 if(grantResults[i] == PackageManager.PERMISSION_GRANTED){
+
+                    Intent intent = new Intent(MainActivity.this, MediaPickerActivity.class);
+                    startActivity(intent);
 
                 }
             }

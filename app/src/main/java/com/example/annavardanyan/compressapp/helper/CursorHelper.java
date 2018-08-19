@@ -1,11 +1,12 @@
-package com.example.annavardanyan.compressapp;
+package com.example.annavardanyan.compressapp.helper;
 
-import android.app.Activity;
 import android.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.annavardanyan.compressapp.model.Media;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 public class CursorHelper {
 
 
-    static List<Media> getData(AppCompatActivity activity){
+    public static List<Media> getData(AppCompatActivity activity){
 
         List<Media> list = new ArrayList<>();
 

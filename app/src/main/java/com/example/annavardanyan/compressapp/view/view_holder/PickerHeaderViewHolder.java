@@ -1,9 +1,14 @@
-package com.example.annavardanyan.compressapp;
+package com.example.annavardanyan.compressapp.view.view_holder;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.annavardanyan.compressapp.model.Media;
+import com.example.annavardanyan.compressapp.view.activity.MediaPickerActivity;
+import com.example.annavardanyan.compressapp.view.adapter.PickerAdapter;
+import com.example.annavardanyan.compressapp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,7 +21,7 @@ public class PickerHeaderViewHolder extends BaseViewHolder {
 
 
 
-    PickerHeaderViewHolder(View itemView, OnDoneClickedListener listener) {
+    public PickerHeaderViewHolder(View itemView, OnDoneClickedListener listener) {
         super(itemView, listener);
 
         ButterKnife.bind(this, itemView);
@@ -24,7 +29,7 @@ public class PickerHeaderViewHolder extends BaseViewHolder {
 
 
     @Override
-    protected void bindData(Media media, Context context) {
+    public void bindData(Media media, Context context) {
         super.bindData(media, context);
         Log.d(PickerAdapter.TAG, "PickerHeaderViewHolder - bindData");
         textCount.setText(String.valueOf(MediaPickerActivity.selectedItemCount));

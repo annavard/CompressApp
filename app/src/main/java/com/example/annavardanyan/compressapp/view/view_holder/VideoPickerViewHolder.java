@@ -1,13 +1,15 @@
-package com.example.annavardanyan.compressapp;
+package com.example.annavardanyan.compressapp.view.view_holder;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.annavardanyan.compressapp.model.Media;
+import com.example.annavardanyan.compressapp.view.adapter.PickerAdapter;
+import com.example.annavardanyan.compressapp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +29,7 @@ public class VideoPickerViewHolder extends BaseViewHolder {
     ImageView imageMediaSelected;
 
 
-    VideoPickerViewHolder(View itemView, OnDoneClickedListener listener) {
+    public VideoPickerViewHolder(View itemView, OnDoneClickedListener listener) {
         super(itemView, listener);
 
         ButterKnife.bind(this, itemView);
@@ -35,7 +37,7 @@ public class VideoPickerViewHolder extends BaseViewHolder {
 
 
     @Override
-    protected void bindData(Media media, Context context) {
+    public void bindData(Media media, Context context) {
         super.bindData(media, context);
         Log.d(PickerAdapter.TAG, "VideoPickerViewHolder - bindData");
 

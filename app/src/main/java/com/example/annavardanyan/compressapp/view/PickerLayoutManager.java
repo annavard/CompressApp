@@ -1,4 +1,4 @@
-package com.example.annavardanyan.compressapp;
+package com.example.annavardanyan.compressapp.view;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;

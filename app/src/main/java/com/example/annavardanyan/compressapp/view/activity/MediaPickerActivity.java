@@ -1,21 +1,22 @@
-package com.example.annavardanyan.compressapp;
+package com.example.annavardanyan.compressapp.view.activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.annavardanyan.compressapp.helper.CursorHelper;
+import com.example.annavardanyan.compressapp.model.Media;
+import com.example.annavardanyan.compressapp.view.adapter.PickerAdapter;
+import com.example.annavardanyan.compressapp.view.PickerLayoutManager;
+import com.example.annavardanyan.compressapp.R;
+import com.example.annavardanyan.compressapp.view.view_holder.PickerHeaderViewHolder;
+
 import org.parceler.Parcels;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

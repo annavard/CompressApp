@@ -1,4 +1,4 @@
-package com.example.annavardanyan.compressapp;
+package com.example.annavardanyan.compressapp.view.adapter;
 
 import android.content.Context;
 import android.provider.MediaStore;
@@ -8,6 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.annavardanyan.compressapp.model.Media;
+import com.example.annavardanyan.compressapp.R;
+import com.example.annavardanyan.compressapp.view.view_holder.BaseViewHolder;
+
+import com.example.annavardanyan.compressapp.view.view_holder.ImagePickerViewHolder;
+import com.example.annavardanyan.compressapp.view.view_holder.PickerHeaderViewHolder;
+import com.example.annavardanyan.compressapp.view.view_holder.VideoPickerViewHolder;
 
 import java.util.List;
 
