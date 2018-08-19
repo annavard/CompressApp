@@ -26,8 +26,12 @@ public class UploadActivity extends AppCompatActivity{
         ButterKnife.bind(this);
 
         List<Media> mediaList = Parcels.unwrap(getIntent().getParcelableExtra(MediaPickerActivity.SELECTED_MEDIA));
-        for(Media media : mediaList){
-            Log.d(TAG, media.getUri().toString());
+        for (Media media : mediaList) {
+            Log.d(TAG, "title - " + media.getTitle());
+            Log.d(TAG, "uri - " + media.getUri().toString());
+            Log.d(TAG, "type - " + media.getMediaType());
+            Log.d(TAG, "size - " + media.getSize());
+            Log.d(TAG, "_____________________________________");
         }
     }
 

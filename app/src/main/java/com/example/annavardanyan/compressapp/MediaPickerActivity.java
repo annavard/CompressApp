@@ -46,21 +46,17 @@ public class MediaPickerActivity extends AppCompatActivity implements PickerHead
         setContentView(R.layout.activity_media_picker);
 
         ButterKnife.bind(this);
-
-        //TODO; Remove this
-//        getAllShownImagesPath(this);
-
-
         mList = CursorHelper.getData(this);
 
 
-//        for (Media media : mList) {
-//            Log.d(TAG, "title - " + media.getTitle());
-//            Log.d(TAG, "uri - " + media.getUri().toString());
-//            Log.d(TAG, "type - " + media.getMediaType());
-//            Log.d(TAG, "size - " + media.getSize());
-//            Log.d(TAG, "_____________________________________");
-//        }
+        for (Media media : mList) {
+            Log.d(TAG, "title - " + media.getTitle());
+            Log.d(TAG, "uri - " + media.getUri().toString());
+            Log.d(TAG, "type - " + media.getMediaType());
+            Log.d(TAG, "size - " + media.getSize());
+            Log.d(TAG, "_____________________________________");
+        }
+
         mAdapter = new PickerAdapter(mList, this, this);
         mRecycler.setAdapter(mAdapter);
         PickerLayoutManager layoutManager = new PickerLayoutManager(this, 3);
@@ -77,8 +73,6 @@ public class MediaPickerActivity extends AppCompatActivity implements PickerHead
     @Override
     public void onItemSelected(Media media) {
         Log.d(TAG, "onItemSelected");
-
-//        media.setSelected(!media.isSelected());
 
         if (media.isSelected()) {
             if (selectedItemCount >= MAX_COUNT) {
