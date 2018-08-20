@@ -36,7 +36,9 @@ public class UploadViewHolder extends BaseViewHolder{
     public void bindData(Media media, Context context){
 
         textTitle.setText(media.getTitle());
-        textSize.setText(String.valueOf(CompressHelper.bytesToMB(media.getSize())));
+        String sizeMb = String.valueOf(CompressHelper.bytesToMB(media.getSize()));
+        String sizeText = context.getResources().getString(R.string.size,CompressHelper.bytesToMB(media.getSize()));
+        textSize.setText(sizeText);
 
         Glide.with(context)
                 .load(media.getUri())
