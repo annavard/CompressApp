@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     public static int SELECT_PICTURE = 1;
 
 
-
     @BindView(R.id.btn_select)
     Button buttonSelect;
 
@@ -54,23 +53,28 @@ public class MainActivity extends AppCompatActivity {
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions();
+                == PackageManager.PERMISSION_GRANTED
+
+                &&
+
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED) {
+
+            Intent intent = new Intent(MainActivity.this, MediaPickerActivity.class);
+            startActivity(intent);
             return;
         }
 
-        Intent intent = new Intent(MainActivity.this, MediaPickerActivity.class);
-        startActivity(intent);
+        requestPermissions();
 
     }
 
 
-
-
-    private void requestPermissions(){
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    1);
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                1);
 
     }
 
@@ -95,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1) {
+        if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
 
@@ -113,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == 1){
-            for(int i : grantResults){
-                if(grantResults[i] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 1) {
+            for (int i : grantResults) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
 
                     Intent intent = new Intent(MainActivity.this, MediaPickerActivity.class);
                     startActivity(intent);

@@ -1,5 +1,6 @@
 package com.example.annavardanyan.compressapp.helper;
 
+import android.content.Context;
 import android.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -63,6 +64,54 @@ public class CursorHelper {
                     cursor.getInt(column_index_type),
                     cursor.getInt(column_index_size)
                     ));
+        }
+
+        return list;
+    }
+
+
+
+
+
+
+
+    public static List<Media> getCompressedData(AppCompatActivity activity, Media media){
+
+        List<Media> list = new ArrayList<>();
+
+
+        String[] projection = {
+                MediaStore.Files.FileColumns._ID,
+                MediaStore.Files.FileColumns.DATA,
+                MediaStore.Files.FileColumns.DATE_ADDED,
+                MediaStore.Files.FileColumns.MIME_TYPE,
+                MediaStore.Files.FileColumns.TITLE,
+                MediaStore.Files.FileColumns.SIZE
+        };
+
+
+        CursorLoader cursorLoader = new CursorLoader(
+                activity,
+                media.getUri(),
+                projection,
+                null,
+                null, // Selection args (none).
+                MediaStore.Files.FileColumns.DATE_ADDED + " DESC" // Sort order.
+        );
+
+
+        Cursor cursor = cursorLoader.loadInBackground();
+
+        int column_index_title = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.TITLE);
+        int column_index_size = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE);
+
+
+        while (cursor.moveToNext()) {
+            String title = cursor.getString(column_index_title);
+            int size = cursor.getInt(column_index_size);
+
+            media.setTitle(title);
+            media.setSize(size);
         }
 
         return list;
